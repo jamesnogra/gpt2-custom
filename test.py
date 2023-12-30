@@ -1,4 +1,4 @@
-import os
+import os, re
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
 from ChatData import START_STRING_TOKEN, END_STRING_TOKEN, BOT_TOKEN
@@ -19,7 +19,14 @@ def infer(text_input):
 	X = text_input['input_ids'].to(DEVICE)
 	a = text_input['attention_mask'].to(DEVICE)
 	output = model.generate(X, attention_mask=a)
-	return tokenizer.decode(output[0])
+	output = tokenizer.decode(output[0]) + END_STRING_TOKEN # Append the end of string token to make sure there is always one
+	# Construct the regular expression pattern using variables
+	pattern = re.escape(BOT_TOKEN) + r'\s*(.*?)\s*' + re.escape(END_STRING_TOKEN)
+	match = re.search(pattern, output)
+	if match:
+		return match.group(1)
+	else:
+		return ''
 
 while True:
 	user_input = input("Enter a question or message (type 'exit' to quit): ")
