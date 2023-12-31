@@ -19,7 +19,7 @@ def infer(text_input):
 	text_input = tokenizer(text_input, return_tensors='pt')
 	X = text_input['input_ids'].to(DEVICE)
 	a = text_input['attention_mask'].to(DEVICE)
-	output = model.generate(X, attention_mask=a, temperature=0.1)
+	output = model.generate(X, attention_mask=a, max_length=32, temperature=0.1)
 	output = tokenizer.decode(output[0]) + END_STRING_TOKEN # Append the end of string token to make sure there is always one
 	# Construct the regular expression pattern using variables
 	pattern = re.escape(BOT_TOKEN) + r'\s*(.*?)\s*' + re.escape(END_STRING_TOKEN)
