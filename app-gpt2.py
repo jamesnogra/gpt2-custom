@@ -10,6 +10,10 @@ GPT2_PASSWORD = os.environ.get('GPT2_PASSWORD')
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def chat():
+	return 'Nothing to see here...'
+
 def validate_basic_auth(request):
     auth = request.authorization
     if auth and auth.username == GPT2_USERNAME and auth.password == GPT2_PASSWORD:
