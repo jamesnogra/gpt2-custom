@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/')
-def chat():
+def index():
 	return 'Nothing to see here...'
 
 def validate_basic_auth(request):
