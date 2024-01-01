@@ -46,7 +46,7 @@ def infer(text_input):
 	text_input = tokenizer(text_input, return_tensors='pt')
 	X = text_input['input_ids'].to(DEVICE)
 	a = text_input['attention_mask'].to(DEVICE)
-	output = model.generate(X, attention_mask=a)
+	output = model.generate(X, attention_mask=a, max_length=64)
 	return tokenizer.decode(output[0])
 
 def train(chat_data, model, optim):
@@ -58,8 +58,12 @@ def train(chat_data, model, optim):
 			loss = model(X, attention_mask=a, labels=X).loss
 			loss.backward()
 			optim.step()
+		if i % 5 == 0:
+			test_sentence = 'What were your childhood aspirations for your future career?'
+			print(f'Sentence: {infer(test_sentence)}')
+			test_sentence = 'hindi kita maintindihan'
+			print(f'Sentence: {infer(test_sentence)}\n')
 		print(f'Epoch: {i+1}\tLoss: {loss.item()}')
-		#print(Sentence: {infer('mahal kita')})
 	#torch.save(model.state_dict(), f'{SAVED_MODEL_NAME}.pt')
 	# Save the fine-tuned model
 	model.save_pretrained(SAVED_MODEL_NAME)
