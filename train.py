@@ -1,5 +1,5 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPT2Config
-from ChatData import ChatData, START_STRING_TOKEN, END_STRING_TOKEN, BOT_TOKEN
+from ChatData import ChatData, START_STRING_TOKEN, END_STRING_TOKEN, BOT_TOKEN, PAD_TOKEN
 from torch.optim import Adam
 from torch.utils.data import DataLoader
 import torch
@@ -13,7 +13,7 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 # Add the special tokens
 tokenizer.add_special_tokens({
-	'pad_token': '<pad>',
+	'pad_token': PAD_TOKEN,
 	'bos_token': START_STRING_TOKEN,
 	'eos_token': END_STRING_TOKEN
 })

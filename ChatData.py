@@ -4,6 +4,7 @@ import os, csv
 START_STRING_TOKEN = '<startofstring>'
 END_STRING_TOKEN = '<endofstring>'
 BOT_TOKEN = '<bot>:'
+PAD_TOKEN = '<pad>'
 MAX_LENGTH = 128
 
 class ChatData(Dataset):
