@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 import torch
 
 DATA_DIR = 'texts_qa'
-EPOCHS = 50
+EPOCHS = 100
 SAVED_MODEL_NAME = 'gpt2-custom'
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
