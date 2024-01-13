@@ -5,7 +5,7 @@ START_STRING_TOKEN = '<startofstring>'
 END_STRING_TOKEN = '<endofstring>'
 BOT_TOKEN = '<bot>:'
 PAD_TOKEN = '<pad>'
-MAX_LENGTH = 128
+MAX_LENGTH = 64
 
 class ChatData(Dataset):
 
@@ -22,7 +22,7 @@ class ChatData(Dataset):
 					# Ensure there are two elements in the row
 					if len(row) == 2:
 						question, answer = row
-						self.X.append(f'{START_STRING_TOKEN}{question.lower()} {BOT_TOKEN} {answer.lower()}{END_STRING_TOKEN}')
+						self.X.append(f'{START_STRING_TOKEN} {question.lower()} {BOT_TOKEN} {answer.lower()} {END_STRING_TOKEN}')
 		self.X_encoded = tokenizer(
 			self.X,
 			max_length=MAX_LENGTH,
