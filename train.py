@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 import torch
 
 DATA_DIR = 'texts_qa'
-EPOCHS = 100
+EPOCHS = 250
 SAVED_MODEL_NAME = 'gpt2-custom'
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -23,7 +23,7 @@ tokenizer.add_tokens([BOT_TOKEN])
 model_config = GPT2Config(
 	vocab_size=tokenizer.vocab_size,
 	n_positions=MAX_LENGTH,  # Adjust the maximum position length if necessary (gpt2 has 1024)
-	n_embd=MAX_LENGTH*8,  # Adjust the embedding dimension (gpt2 has 768)
+	n_embd=MAX_LENGTH*2,  # Adjust the embedding dimension (gpt2 has 768)
 	n_layer=16,  # Adjust the number of layers (gpt2 has 12)
 	n_head=16,  # Adjust the number of attention heads (gpt2 has 12)
 	intermediate_size=1024,  # Adjust the intermediate size (gpt2 has 3072)
@@ -58,16 +58,15 @@ def train(chat_data, model, optim):
 			loss = model(X, attention_mask=a, labels=X).loss
 			loss.backward()
 			optim.step()
-		if i % 5 == 0:
+		if i % 10 == 0:
 			test_sentence = 'What were your childhood aspirations for your future career?'
 			print(f'Sentence: {infer(test_sentence)}')
 			test_sentence = 'hindi kita maintindihan'
 			print(f'Sentence: {infer(test_sentence)}\n')
+			# Save the fine-tuned model
+			model.save_pretrained(SAVED_MODEL_NAME)
+			tokenizer.save_pretrained(SAVED_MODEL_NAME)
 		print(f'Epoch: {i+1}\tLoss: {loss.item()}')
-	#torch.save(model.state_dict(), f'{SAVED_MODEL_NAME}.pt')
-	# Save the fine-tuned model
-	model.save_pretrained(SAVED_MODEL_NAME)
-	tokenizer.save_pretrained(SAVED_MODEL_NAME)
 
 train(chat_data, model, optim)
 print(infer('mahal kita'))
