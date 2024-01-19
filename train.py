@@ -23,7 +23,7 @@ tokenizer.add_tokens([BOT_TOKEN])
 model_config = GPT2Config(
 	vocab_size=tokenizer.vocab_size,
 	n_positions=MAX_LENGTH,  # Adjust the maximum position length if necessary (gpt2 has 1024)
-	n_embd=MAX_LENGTH*4,  # Adjust the embedding dimension (gpt2 has 768)
+	n_embd=MAX_LENGTH*8,  # Adjust the embedding dimension (gpt2 has 768)
 	n_layer=16,  # Adjust the number of layers (gpt2 has 12)
 	n_head=16,  # Adjust the number of attention heads (gpt2 has 12)
 	intermediate_size=1024,  # Adjust the intermediate size (gpt2 has 3072)

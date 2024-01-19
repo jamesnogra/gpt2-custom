@@ -18,6 +18,9 @@ def infer(text_input):
 	text_input = tokenizer(text_input, return_tensors='pt')
 	X = text_input['input_ids'].to(DEVICE)
 	a = text_input['attention_mask'].to(DEVICE)
+	# Reset model's hidden state
+	with torch.no_grad():
+		_ = model.forward(X, attention_mask=a)
 	output = model.generate(X, attention_mask=a, max_length=MAX_LENGTH, top_k=5, do_sample=True)
 	output = tokenizer.decode(output[0]) + END_STRING_TOKEN # Append the end of string token to make sure there is always one
 	# Construct the regular expression pattern using variables
