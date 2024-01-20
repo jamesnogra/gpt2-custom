@@ -1,33 +1,54 @@
 {
   "add_bos_token": false,
   "add_prefix_space": false,
-  "bos_token": {
-    "__type": "AddedToken",
-    "content": "<|endoftext|>",
-    "lstrip": false,
-    "normalized": true,
-    "rstrip": false,
-    "single_word": false
+  "added_tokens_decoder": {
+    "50256": {
+      "content": "<|endoftext|>",
+      "lstrip": false,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "50257": {
+      "content": "<pad>",
+      "lstrip": false,
+      "normalized": false,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "50258": {
+      "content": "<startofstring>",
+      "lstrip": false,
+      "normalized": false,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "50259": {
+      "content": "<endofstring>",
+      "lstrip": false,
+      "normalized": false,
+      "rstrip": false,
+      "single_word": false,
+      "special": true
+    },
+    "50260": {
+      "content": "<bot>:",
+      "lstrip": false,
+      "normalized": true,
+      "rstrip": false,
+      "single_word": false,
+      "special": false
+    }
   },
+  "bos_token": "<startofstring>",
   "clean_up_tokenization_spaces": true,
-  "eos_token": {
-    "__type": "AddedToken",
-    "content": "<|endoftext|>",
-    "lstrip": false,
-    "normalized": true,
-    "rstrip": false,
-    "single_word": false
-  },
+  "eos_token": "<endofstring>",
   "errors": "replace",
   "model_max_length": 1024,
-  "pad_token": null,
+  "pad_token": "<pad>",
   "tokenizer_class": "GPT2Tokenizer",
-  "unk_token": {
-    "__type": "AddedToken",
-    "content": "<|endoftext|>",
-    "lstrip": false,
-    "normalized": true,
-    "rstrip": false,
-    "single_word": false
-  }
+  "unk_token": "<|endoftext|>"
 }
